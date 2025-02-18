@@ -1,22 +1,33 @@
 class Node:
-    def __init__(self,data,next = None):
+    def __init__(self, data, next=None):
         self.data = data
-        self.data = next
+        self.next = next
 
-class LinkedList:
+class Queue:
     def __init__(self):
-        self.head = None
+        self.front = None
+        self.rear = None
+        self._size = 0
 
-    def append(self,data):
-        if not self.head:
-            self.head = Node(data)
-            return
-        current = self.head
-        while current.next: #if next node exist
-            current = current.next
-        current.next = Node(data)
+    def enqueue(self, item):
+        self._size += 1
+        node = Node(item)
+        if self.rear is None:
+            self.front = node
+            self.rear = node
+        else:
+            self.rear.next = node
+            self.rear = node
 
-if __name__ == "__main__":
-    l = LinkedList()
-    l.append(7)
-    l.append(-11)
+    def dequeue(self):
+        if self.front is None:
+            raise IndexError("pop from empty queue")
+        self._size -= 1
+        temp = self.front
+        self.front = self.front.next
+        if self.front is None:
+            self.rear = None
+        return temp.data
+
+    def size(self):
+        return self._size
