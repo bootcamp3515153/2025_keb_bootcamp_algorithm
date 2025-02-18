@@ -1,15 +1,10 @@
+# Circular Linked List로 queue 만들기.
+
 def is_queue_full() :
     global size, queue, front, rear
-    if rear != (size - 1):
-        return False
-    elif (front == -1) and (rear == size-1):
+    if (rear+1)%size == front: #change thing
         return True
     else:
-        for i in range(front+1, size):
-            queue[i-1] = queue[i]
-            queue[i] = None
-        front = front - 1
-        rear = rear - 1
         return False
 
 
@@ -25,7 +20,7 @@ def en_queue(data) :
     if is_queue_full():
         print("큐가 꽉 찼습니다.")
         return
-    rear += 1
+    rear =(rear+1)%size # change thing
     queue[rear] = data
 
 def de_queue() :
@@ -33,7 +28,7 @@ def de_queue() :
     if is_queue_empty():
         print("큐가 비었습니다.")
         return None
-    front += 1
+    front = (front+1)%size #change thing
     data = queue[front]
     queue[front] = None
     return data
@@ -43,12 +38,12 @@ def peek() :
     if is_queue_empty():
         print("큐가 비었습니다.")
         return None
-    return queue[front+1]
+    return queue[(front+1)%size] #change thing
 
 
 size = int(input("큐의 크기를 입력 : "))
 queue = [None for _ in range(size)]
-front = rear = -1
+front = rear = 0 #change thing
 
 if __name__ == "__main__" :
     while True:
