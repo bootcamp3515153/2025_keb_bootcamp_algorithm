@@ -1,24 +1,24 @@
 def is_queue_full() :
     global size, queue, front, rear
-    if rear == size-1 and front == -1:
+    if rear != (size - 1):
+        return False
+    elif (front == -1) and (rear == size-1):
         return True
     else:
+        for i in range(front+1, size):
+            queue[i-1] = queue[i]
+            queue[i] = None
+        front = front - 1
+        rear = rear - 1
         return False
+
 
 def is_queue_empty() :
     global size, queue, front, rear
-    if rear != (size -1):
-        return False
-    elif (front == -1) and (rear == size -1):
+    if front == rear:
         return True
-    else:
-        for i in range(front+1,size):
-            queue[i-1] = queue[i]
-            queue[i] = None
-        front = front -1
-        rear = rear -1
+    else :
         return False
-
 
 def en_queue(data) :
     global size, queue, front, rear
@@ -35,7 +35,6 @@ def de_queue() :
         return None
     front += 1
     data = queue[front]
-
     queue[front] = None
     return data
 
