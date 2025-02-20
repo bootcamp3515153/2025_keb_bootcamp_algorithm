@@ -1,3 +1,5 @@
+from collections import deque
+
 class Graph:
 	def __init__(self, size) :
 		self.SIZE = size
@@ -28,9 +30,29 @@ def dfs(g, current, find_vtx, visited):
     return False
 
 
+from collections import deque
+
+
+def bfs(g, current, find_vtx, visited):
+    queue = deque([current])
+    visited.append(current)
+
+    while queue:
+        i = queue.popleft()
+        if i == find_vtx:
+            return True
+
+        for j in range(g.SIZE):
+            if g.graph[i][j] != 0 and j not in visited:
+                queue.append(j)
+                visited.append(j)
+
+    return False
+
+
 def find_vertex(g, find_vtx):
     visited = []
-    return dfs(g, 0, find_vtx, visited)
+    return bfs(g, 0, find_vtx, visited)
 
 
 G1 = None
