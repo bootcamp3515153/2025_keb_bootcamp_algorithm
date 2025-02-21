@@ -1,4 +1,4 @@
-def insertion_sert(l):
+def insertion_sort(l):
     for i in range(1, len(l)):
         value = l[i]
         while i>0 and l[i-1] > value:
